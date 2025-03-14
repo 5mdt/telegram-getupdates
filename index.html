@@ -10,7 +10,7 @@
 
     <div class="container">
         <h1>Telegram Bot GetUpdates</h1>
-
+        <p>Get telegram events. No external dependencies, no tracking, no even cookies.</p>
         <div id="token-input-section">
             <label for="token">Enter Your Bot Token:</label>
             <input type="text" id="token" placeholder="Your Telegram Bot Token">
@@ -25,14 +25,31 @@
             <h2>Saved Tokens:</h2>
             <ul id="tokensList"></ul>
         </div>
-
         <div id="result-section">
+            <div class="button-group">
+                <button onclick="toggleView('json')">Show JSON</button>
+                <button onclick="toggleView('cards')">Show Cards</button>
+            </div>
             <div id="loading" style="display: none;">Loading...</div>
-            <div id="result"></div>
+
+            <div id="cards-view">
+                <h3>Events View</h3>
+                <div id="cardsContainer"></div>
+            </div>
+
+            <div id="json-view" style="display: none;">
+                <h3>JSON View</h3>
+                <div id="result"></div>
+            </div>
+
         </div>
     </div>
 
     <script src="script.js"></script>
 
+    <div>
+        <p>🐙 GitHub: <a href="https://github.com/5mdt/telegram-getupdates" target="_blank">5mdt/telegram-getupdates</a></p>
+        <p>🖼️ Demo: <a href="https://5mdt.github.io/telegram-getupdates/" target="_blank">Live Demo</a></p>
+    </div>
 </body>
 </html>

@@ -30,14 +30,15 @@ async function fetchUpdates() {
   }
 }
 
-// Function to display the result (formatted JSON)
+// Function to display the result in both JSON and Card view
 function displayResult(data) {
   const resultDiv = document.getElementById('result');
+  const cardsContainer = document.getElementById('cardsContainer');
 
-  // Pretty print the JSON
+  // Pretty print the JSON in the existing JSON view
   resultDiv.textContent = JSON.stringify(data, null, 2);
 
-  // Add enhanced syntax highlighting
+  // Add enhanced syntax highlighting for JSON (already present)
   const formattedData = JSON.stringify(data, null, 2)
     .replace(/"([^"]+)":/g, '<span class="json-key">"$1":</span>') // Highlight keys
     .replace(/: ("[^"]*")/g, ': <span class="json-value">$1</span>') // Highlight string values
@@ -47,9 +48,124 @@ function displayResult(data) {
 
   resultDiv.innerHTML = formattedData;
 
-  // Show the result section once the data is displayed
+  // Now, create cards view for the events
+  cardsContainer.innerHTML = ''; // Clear previous cards
+
+  const events = data.result;  // Assuming events are in 'result' key
+  events.forEach(event => {
+    const card = document.createElement('div');
+    card.classList.add('card');
+
+    const title = document.createElement('h4');
+    title.textContent = `Event ID: ${event.update_id}`;
+
+    // Check if the event has a message and handle accordingly
+    let messageContent = "No message";
+    let footerContent = "Unknown sender";
+    let eventDataForYaml = event; // Store the event data for the YAML button
+
+    if (event.message) {
+      messageContent = event.message.text || "No text content";
+      footerContent = `From: ${event.message.from.username}`;
+    } else if (event.my_chat_member) {
+      messageContent = `Chat changed: ${event.my_chat_member.new_chat_member.status}`;
+      footerContent = `From: ${event.my_chat_member.from.username}`;
+    } else if (event.new_chat_participant) {
+      messageContent = `New participant: ${event.new_chat_participant.first_name}`;
+      footerContent = `From: ${event.message ? event.message.from.username : "Unknown"}`;
+    } else if (event.new_chat_member) {
+      messageContent = `New member: ${event.new_chat_member.first_name}`;
+      footerContent = `From: ${event.message ? event.message.from.username : "Unknown"}`;
+    }
+
+    const message = document.createElement('p');
+    message.textContent = messageContent;
+
+    const footer = document.createElement('div');
+    footer.classList.add('card-footer');
+    footer.textContent = footerContent;
+
+    // Create the "Show Data" Button for YAML view
+    const showDataButton = document.createElement('button');
+    showDataButton.textContent = "Show Data";
+    showDataButton.onclick = () => toggleYamlData(card, eventDataForYaml);
+
+    card.appendChild(title);
+    card.appendChild(message);
+    card.appendChild(footer);
+    card.appendChild(showDataButton);
+
+    cardsContainer.appendChild(card);
+  });
+
+  // Show both views
   document.getElementById('result-section').style.display = 'block';
+  document.getElementById('json-view').style.display = 'block';
+  document.getElementById('cards-view').style.display = 'block';
 }
+
+// Function to convert JSON to YAML
+function jsonToYaml(json) {
+  let yaml = '';
+  for (const key in json) {
+    if (json.hasOwnProperty(key)) {
+      const value = json[key];
+      if (typeof value === 'object' && value !== null) {
+        yaml += `${key}:\n${indentObject(value, 2)}`;
+      } else {
+        yaml += `${key}: ${value}\n`;
+      }
+    }
+  }
+  return yaml;
+}
+
+// Helper function to indent objects for YAML formatting
+function indentObject(obj, indentLevel) {
+  let indented = '';
+  const indent = ' '.repeat(indentLevel);
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const value = obj[key];
+      if (typeof value === 'object' && value !== null) {
+        indented += `${indent}${key}:\n${indentObject(value, indentLevel + 2)}`;
+      } else {
+        indented += `${indent}${key}: ${value}\n`;
+      }
+    }
+  }
+  return indented;
+}
+
+// Function to toggle YAML data view on button click
+function toggleYamlData(card, data) {
+  // Check if YAML data already exists
+  let yamlSection = card.querySelector('.yaml-section');
+
+  if (!yamlSection) {
+    // If no YAML data, create and display it
+    yamlSection = document.createElement('pre');
+    yamlSection.classList.add('yaml-section');
+    yamlSection.textContent = jsonToYaml(data);
+    card.appendChild(yamlSection);
+  } else {
+    // If YAML data already exists, toggle its visibility
+    yamlSection.style.display = yamlSection.style.display === 'none' ? 'block' : 'none';
+  }
+}
+
+
+// Function to toggle between JSON and Cards view
+function toggleView(view) {
+  if (view === 'json') {
+    document.getElementById('json-view').style.display = 'block';
+    document.getElementById('cards-view').style.display = 'none';
+  } else {
+    document.getElementById('json-view').style.display = 'none';
+    document.getElementById('cards-view').style.display = 'block';
+  }
+}
+
 
 // Function to save token with a custom name in localStorage
 function saveToken() {
