@@ -3,9 +3,30 @@
 ---
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
     hooks:
-      - id: trailing-whitespace
+      # fixes:
       - id: end-of-file-fixer
-      - id: check-yaml
+      - id: fix-byte-order-marker
+      - id: mixed-line-ending
+      - id: pretty-format-json
+        args:
+          - --autofix
+      - id: sort-simple-yaml
+        files: ^\.*(yml|yaml)$
+      - id: trailing-whitespace
+      # checks:
       - id: check-added-large-files
-    rev: v4.5.0
+      - id: check-executables-have-shebangs
+      - id: check-illegal-windows-names
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
+      - id: check-symlinks
+      - id: check-toml
+      - id: check-xml
+      - id: check-yaml
+      - id: destroyed-symlinks
+      - id: detect-aws-credentials
+      - id: detect-private-key
+      - id: no-commit-to-branch
