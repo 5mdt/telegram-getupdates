@@ -13,8 +13,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Create build directory
+      run: mkdir -p build
+
+    - name: Copy HTML and JS files to build directory
+      run: |
+        # Copy all .html and .js files to the build directory
+        cp *.html ./build/
+        cp *.js ./build/
+
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./
+        publish_dir: ./build
