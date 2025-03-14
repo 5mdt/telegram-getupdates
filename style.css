@@ -11,8 +11,6 @@ body {
   padding: 15px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  max-height: 400px;
-  overflow-y: auto;
 }
 
 input, button {
