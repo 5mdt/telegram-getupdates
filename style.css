@@ -123,6 +123,7 @@ button:active {
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin-left: 5px;
+  align-self: center;
 }
 
 #tokensList button:hover {
@@ -238,6 +239,7 @@ button:active {
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 15px;
 }
+
 /* Link Styling */
 a {
   color: var(--nord-6); /* Light Blue */
@@ -254,6 +256,7 @@ a:active {
   color: var(--nord-9); /* Red Accent */
 }
 
+/* JSON Section */
 .json-section {
   background-color: #f6f8fa; /* Light background for JSON */
   padding: 10px;
@@ -267,4 +270,66 @@ a:active {
 
 .json-section pre {
   margin: 0; /* Ensures no extra space in the preformatted block */
+}
+
+/* Light and Dark Mode support */
+
+/* Light Mode (default theme) */
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: var(--nord-1); /* Light background */
+    color: var(--nord-3); /* Dark text */
+  }
+
+  .container {
+    background-color: #fff; /* Light container background */
+  }
+
+  button {
+    background-color: var(--nord-6); /* Light Blue */
+    color: white;
+  }
+
+  button:hover {
+    background-color: var(--nord-7); /* Ice Blue */
+  }
+
+  button:active {
+    background-color: var(--nord-9); /* Red Accent */
+  }
+
+  #result {
+    background-color: var(--nord-2); /* Light background for result */
+    border: 1px solid var(--nord-4); /* Medium Gray */
+  }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--nord-3); /* Dark background */
+    color: var(--nord-0); /* Light text */
+  }
+
+  .container {
+    background-color: var(--nord-5); /* Dark container background */
+  }
+
+  button {
+    background-color: var(--nord-6); /* Light Blue */
+    color: white;
+  }
+
+  button:hover {
+    background-color: var(--nord-7); /* Ice Blue */
+  }
+
+  button:active {
+    background-color: var(--nord-9); /* Red Accent */
+  }
+
+  #result {
+    background-color: var(--nord-4); /* Dark background for result */
+    border: 1px solid var(--nord-6); /* Light Blue */
+  }
 }
