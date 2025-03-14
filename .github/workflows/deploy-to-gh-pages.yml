@@ -19,6 +19,7 @@ jobs:
     - name: Copy HTML and JS files to build directory
       run: |
         # Copy all .html and .js files to the build directory
+        cp *.css ./build/
         cp *.html ./build/
         cp *.js ./build/
 
