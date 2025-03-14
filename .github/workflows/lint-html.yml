@@ -1,3 +1,5 @@
+# lint-html.yml
+
 name: Lint HTML Files
 
 on:
