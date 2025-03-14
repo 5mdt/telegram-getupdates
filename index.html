@@ -50,43 +50,12 @@
 
     <div id="result"></div>
 
-<<<<<<< Updated upstream
-    <script>
-        async function fetchUpdates() {
-            const token = document.getElementById('token').value;
-            if (!token) {
-                alert("Please enter your Telegram Bot Token");
-                return;
-            }
-
-            const url = `https://api.telegram.org/bot${token}/getUpdates`;
-
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch updates');
-                }
-
-                const data = await response.json();
-                displayResult(data);
-            } catch (error) {
-                alert(error.message);
-            }
-        }
-
-        function displayResult(data) {
-            const resultDiv = document.getElementById('result');
-            resultDiv.textContent = JSON.stringify(data, null, 2);
-        }
-    </script>
-=======
     <div>
         <p>🐙 GitHub: <a href="https://github.com/5mdt/telegram-getupdates" target="_blank">5mdt/telegram-getupdates</a></p>
         <p>🖼️ Demo: <a href="https://5mdt.github.io/telegram-getupdates/" target="_blank">Live Demo</a></p>
     </div>
 
     <script src="script.js"></script>
->>>>>>> Stashed changes
 
 </body>
 </html>
