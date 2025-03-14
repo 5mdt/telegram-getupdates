@@ -1,4 +1,10 @@
+# deploy-to-gh-pages.yml
 
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the main branch
 jobs:
   # Build job
   build:
