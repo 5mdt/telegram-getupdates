@@ -5,6 +5,9 @@ async function fetchUpdates() {
     return;
   }
 
+  // Show the loading indicator
+  document.getElementById('loading').style.display = 'block';
+
   const url = `https://api.telegram.org/bot${token}/getUpdates`;
 
   try {
@@ -17,6 +20,9 @@ async function fetchUpdates() {
     displayResult(data);
   } catch (error) {
     alert(error.message);
+  } finally {
+    // Hide the loading indicator
+    document.getElementById('loading').style.display = 'none';
   }
 }
 
@@ -31,4 +37,9 @@ function displayResult(data) {
                                                  .replace(/: ("[^"]*")/g, ': <span class="json-value">$1</span>');
 
   resultDiv.innerHTML = formattedData;
+}
+
+function clearResult() {
+  const resultDiv = document.getElementById('result');
+  resultDiv.textContent = '';
 }

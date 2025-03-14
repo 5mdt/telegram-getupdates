@@ -12,8 +12,10 @@
     <label for="token">Enter Your Bot Token:</label>
     <input type="text" id="token" placeholder="Your Telegram Bot Token">
     <button onclick="fetchUpdates()">Get Updates</button>
+    <button onclick="clearResult()">Clear Result</button>
 
     <div id="result"></div>
+    <div id="loading" style="display: none;">Loading...</div>
 
     <div>
         <p>🐙 GitHub: <a href="https://github.com/5mdt/telegram-getupdates" target="_blank">5mdt/telegram-getupdates</a></p>
