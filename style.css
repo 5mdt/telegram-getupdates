@@ -1,23 +1,39 @@
+/* Define Nord Aurora Light Color Palette Variables */
+:root {
+  --nord-0: #d8dee9; /* Snow Storm */
+  --nord-1: #e5e9f0; /* Ice Cold */
+  --nord-2: #eceff4; /* Frost */
+  --nord-3: #3b4252; /* Darker Gray */
+  --nord-4: #434c5e; /* Medium Gray */
+  --nord-5: #4c566a; /* Soft Dark Gray */
+  --nord-6: #81a1c1; /* Light Blue */
+  --nord-7: #88c0d0; /* Ice Blue */
+  --nord-8: #8fbcbb; /* Pale Sky */
+  --nord-9: #bf616a; /* Red Accent */
+  --nord-10: #d08770; /* Orange Accent */
+  --nord-11: #ebcb8b; /* Yellow Accent */
+  --nord-12: #a3be8c; /* Green Accent */
+  --nord-13: #b48ead; /* Purple Accent */
+}
 
 /* Body Styling */
-
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  background-color: #f0e0d6; /* Frothy Milk */
-  color: #3e3c36; /* Espresso */
+  background-color: var(--nord-1); /* Ice Cold */
+  color: var(--nord-3); /* Darker Gray */
   padding: 20px;
-  max-width: 1200px; /* Limit the maximum width to 1200px */
-  width: 100%; /* Ensure body takes up 100% of the available screen width */
+  max-width: 1200px;
+  width: 100%;
   margin-left: auto;
-  margin-right: auto; /* Center the body */
-  box-sizing: border-box; /* Include padding and border within the element's width */
+  margin-right: auto;
+  box-sizing: border-box;
   display: block;
 }
 
 /* Main Container Styling */
 .container {
-  max-width: 100%; /* Ensure container doesn't overflow on small screens */
+  max-width: 100%;
   margin: 0 auto;
   background-color: #fff;
   padding: 20px;
@@ -30,7 +46,7 @@ body {
 h1 {
   font-size: 28px;
   font-weight: 700;
-  color: #c49a6c; /* Macchiato */
+  color: var(--nord-10); /* Orange Accent */
   text-align: center;
   margin-bottom: 20px;
 }
@@ -39,17 +55,17 @@ h1 {
 input {
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #c49a6c; /* Macchiato */
+  border: 1px solid var(--nord-4); /* Medium Gray */
   border-radius: 5px;
   width: 100%;
-  max-width: 100%; /* Ensure it stays within the container */
-  background-color: #d9c6b5; /* Latte */
+  max-width: 100%;
+  background-color: var(--nord-2); /* Ice Cold */
   margin-bottom: 15px;
-  box-sizing: border-box; /* Prevent overflow */
+  box-sizing: border-box;
 }
 
 input:focus {
-  border-color: #9e7a56; /* Cinnamon */
+  border-color: var(--nord-6); /* Light Blue */
   outline: none;
 }
 
@@ -57,7 +73,7 @@ input:focus {
 button {
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #9e7a56; /* Cinnamon */
+  background-color: var(--nord-6); /* Light Blue */
   color: white;
   border: none;
   border-radius: 5px;
@@ -70,11 +86,11 @@ button {
 }
 
 button:hover {
-  background-color: #c49a6c; /* Macchiato */
+  background-color: var(--nord-7); /* Ice Blue */
 }
 
 button:active {
-  background-color: #3e3c36; /* Espresso */
+  background-color: var(--nord-9); /* Red Accent */
 }
 
 /* Saved Tokens Section */
@@ -88,7 +104,7 @@ button:active {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
-  background-color: #f4f4f4;
+  background-color: var(--nord-2); /* Ice Cold */
   padding: 5px 10px;
   border-radius: 5px;
 }
@@ -100,7 +116,7 @@ button:active {
 #tokensList button {
   padding: 5px 10px;
   font-size: 14px;
-  background-color: #9e7a56; /* Cinnamon */
+  background-color: var(--nord-6); /* Light Blue */
   border: none;
   border-radius: 5px;
   color: white;
@@ -110,7 +126,7 @@ button:active {
 }
 
 #tokensList button:hover {
-  background-color: #c49a6c; /* Macchiato */
+  background-color: var(--nord-7); /* Ice Blue */
 }
 
 #tokensList li > div {
@@ -131,46 +147,31 @@ button:active {
 }
 
 #result {
-  background-color: #f4f4f4;
+  background-color: var(--nord-2); /* Ice Cold */
   padding: 15px;
   border-radius: 5px;
   font-family: monospace;
   font-size: 14px;
   white-space: pre-wrap;
   word-wrap: break-word;
-  border: 1px solid #c49a6c; /* Macchiato */
-  background-color: #d9c6b5; /* Latte */
+  border: 1px solid var(--nord-4); /* Medium Gray */
+  background-color: var(--nord-2); /* Ice Cold */
 }
 
-/* JSON Syntax Highlighting */
-.json-key {
-  color: #9e7a56; /* Cinnamon - for keys */
+/* Data Syntax Highlighting */
+.data-key {
+  color: var(--nord-13);
 }
 
-.json-value {
-  color: #c49a6c; /* Macchiato - for values */
-}
-
-.json-string {
-  color: #d9c6b5; /* Latte - for string values */
-}
-
-.json-number {
-  color: #3e3c36; /* Espresso - for numbers */
-}
-
-.json-boolean {
-  color: #9e7a56; /* Cinnamon - for booleans (true/false) */
-}
-
-.json-null {
-  color: #c49a6c; /* Macchiato - for null values */
+/* For YAML-specific highlighting */
+.data-indented {
+  margin-left: 20px;
 }
 
 /* Responsive Design */
 @media (max-width: 600px) {
   h1 {
-    font-size: 24px; /* Adjust the title size for smaller screens */
+    font-size: 24px;
   }
 
   .container {
@@ -178,31 +179,32 @@ button:active {
   }
 
   input {
-    font-size: 14px; /* Smaller input text for better mobile fit */
+    font-size: 14px;
   }
 
   button {
-    font-size: 14px; /* Adjust button text size for mobile */
+    font-size: 14px;
     padding: 8px 16px;
   }
 
   #tokensList li {
-    flex-direction: column; /* Stack token name and buttons for small screens */
+    flex-direction: column;
     align-items: flex-start;
   }
 
   #tokensList button {
-    width: 100%; /* Make buttons full width on mobile */
+    width: 100%;
     margin-top: 5px;
   }
 }
+
 /* Card view styling */
 #cards-view {
   margin-top: 30px;
 }
 
 .card {
-  background-color: #f4f4f4;
+  background-color: var(--nord-2); /* Ice Cold */
   padding: 15px;
   border-radius: 10px;
   margin-bottom: 15px;
@@ -215,17 +217,17 @@ button:active {
 .card h4 {
   font-size: 18px;
   margin: 0;
-  color: #3e3c36; /* Espresso */
+  color: var(--nord-3); /* Darker Gray */
 }
 
 .card p {
   margin: 5px 0;
-  color: #3e3c36; /* Espresso */
+  color: var(--nord-3); /* Darker Gray */
 }
 
 .card .card-footer {
   font-size: 12px;
-  color: #9e7a56; /* Cinnamon */
+  color: var(--nord-6); /* Light Blue */
   margin-top: 10px;
   text-align: right;
 }
@@ -235,4 +237,34 @@ button:active {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 15px;
+}
+/* Link Styling */
+a {
+  color: var(--nord-6); /* Light Blue */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--nord-7); /* Ice Blue */
+  text-decoration: underline;
+}
+
+a:active {
+  color: var(--nord-9); /* Red Accent */
+}
+
+.json-section {
+  background-color: #f6f8fa; /* Light background for JSON */
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #d1d5da; /* Same border style as the full JSON view */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 14px;
+  margin-top: 10px; /* Optional: Adds some space between card content and JSON */
+}
+
+.json-section pre {
+  margin: 0; /* Ensures no extra space in the preformatted block */
 }
