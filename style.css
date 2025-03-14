@@ -1,10 +1,18 @@
+
 /* Body Styling */
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   background-color: #f0e0d6; /* Frothy Milk */
   color: #3e3c36; /* Espresso */
   padding: 20px;
+  max-width: 1200px; /* Limit the maximum width to 1200px */
+  width: 100%; /* Ensure body takes up 100% of the available screen width */
+  margin-left: auto;
+  margin-right: auto; /* Center the body */
+  box-sizing: border-box; /* Include padding and border within the element's width */
+  display: block;
 }
 
 /* Main Container Styling */
@@ -112,9 +120,14 @@ button:active {
   gap: 10px;
 }
 
-/* Result Section */
+/* Initially hide result section */
 #result-section {
-  margin-top: 30px;
+  display: none;
+}
+
+/* Hide saved tokens section if no tokens are saved */
+#saved-tokens-section {
+  display: none;
 }
 
 #result {

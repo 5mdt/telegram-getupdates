@@ -9,6 +9,9 @@ async function fetchUpdates() {
   // Show the loading indicator
   document.getElementById('loading').style.display = 'block';
 
+  // Hide results before the request is made
+  document.getElementById('result-section').style.display = 'none';
+
   const url = `https://api.telegram.org/bot${token}/getUpdates`;
 
   try {
@@ -43,12 +46,9 @@ function displayResult(data) {
     .replace(/: null/g, ': <span class="json-null">null</span>'); // Highlight null values
 
   resultDiv.innerHTML = formattedData;
-}
 
-// Function to clear the result section
-function clearResult() {
-  const resultDiv = document.getElementById('result');
-  resultDiv.textContent = '';
+  // Show the result section once the data is displayed
+  document.getElementById('result-section').style.display = 'block';
 }
 
 // Function to save token with a custom name in localStorage
@@ -73,26 +73,6 @@ function saveToken() {
   alert(`Token saved with the name "${storageName}".`);
 
   // Refresh the list of saved tokens after saving
-  loadSavedTokens();
-}
-
-
-// Function to load selected token from localStorage
-function loadSelectedToken(storageName) {
-  const savedToken = localStorage.getItem(storageName);
-
-  if (savedToken) {
-    document.getElementById('token').value = savedToken;
-    alert(`Token loaded for "${storageName}".`);
-  }
-}
-
-// Function to remove a token from localStorage
-function removeToken(storageName) {
-  localStorage.removeItem(storageName);
-  alert(`Token "${storageName}" removed.`);
-
-  // Refresh the list of saved tokens after removing
   loadSavedTokens();
 }
 
@@ -131,8 +111,34 @@ function loadSavedTokens() {
       tokensList.appendChild(listItem);
     }
   }
+
+  // If there are no saved tokens, hide the saved tokens section
+  const savedTokensSection = document.getElementById('saved-tokens-section');
+  if (localStorage.length === 0) {
+    savedTokensSection.style.display = 'none';
+  } else {
+    savedTokensSection.style.display = 'block';
+  }
 }
 
+// Function to load selected token from localStorage
+function loadSelectedToken(storageName) {
+  const savedToken = localStorage.getItem(storageName);
+
+  if (savedToken) {
+    document.getElementById('token').value = savedToken;
+    alert(`Token loaded for "${storageName}".`);
+  }
+}
+
+// Function to remove a token from localStorage
+function removeToken(storageName) {
+  localStorage.removeItem(storageName);
+  alert(`Token "${storageName}" removed.`);
+
+  // Refresh the list of saved tokens after removing
+  loadSavedTokens();
+}
 
 // Load saved tokens on page load
 document.addEventListener('DOMContentLoaded', loadSavedTokens);
