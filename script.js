@@ -35,16 +35,16 @@ function displayResult(data) {
   const resultDiv = document.getElementById('result');
   const cardsContainer = document.getElementById('cardsContainer');
 
-  // Pretty print the JSON in the existing JSON view
+  // Pretty print the JSON/YAML in the existing view
   resultDiv.textContent = JSON.stringify(data, null, 2);
 
-  // Add enhanced syntax highlighting for JSON (already present)
+  // Add enhanced syntax highlighting for both JSON and YAML (already present)
   const formattedData = JSON.stringify(data, null, 2)
-    .replace(/"([^"]+)":/g, '<span class="json-key">"$1":</span>') // Highlight keys
-    .replace(/: ("[^"]*")/g, ': <span class="json-value">$1</span>') // Highlight string values
-    .replace(/: (\d+)/g, ': <span class="json-number">$1</span>') // Highlight numbers
-    .replace(/: (true|false)/g, ': <span class="json-boolean">$1</span>') // Highlight booleans
-    .replace(/: null/g, ': <span class="json-null">null</span>'); // Highlight null values
+    .replace(/"([^"]+)":/g, '<span class="data-key">"$1":</span>') // Highlight keys
+    .replace(/: ("[^"]*")/g, ': <span class="data-value">$1</span>') // Highlight string values
+    .replace(/: (\d+)/g, ': <span class="data-number">$1</span>') // Highlight numbers
+    .replace(/: (true|false)/g, ': <span class="data-boolean">$1</span>') // Highlight booleans
+    .replace(/: null/g, ': <span class="data-null">null</span>'); // Highlight null values
 
   resultDiv.innerHTML = formattedData;
 
@@ -62,7 +62,6 @@ function displayResult(data) {
     // Check if the event has a message and handle accordingly
     let messageContent = "No message";
     let footerContent = "Unknown sender";
-    let eventDataForYaml = event; // Store the event data for the YAML button
 
     if (event.message) {
       messageContent = event.message.text || "No text content";
@@ -85,15 +84,23 @@ function displayResult(data) {
     footer.classList.add('card-footer');
     footer.textContent = footerContent;
 
-    // Create the "Show Data" Button for YAML view
+    // Create the "Show Data" button
     const showDataButton = document.createElement('button');
     showDataButton.textContent = "Show Data";
-    showDataButton.onclick = () => toggleYamlData(card, eventDataForYaml);
+    showDataButton.onclick = () => toggleJsonData(card, event);
 
+    // Create a div for the JSON data (initially hidden)
+    const jsonSection = document.createElement('div');
+    jsonSection.classList.add('json-section');
+    jsonSection.style.display = 'none';
+    jsonSection.innerHTML = `<pre>${highlightJsonSyntax(event)}</pre>`;  // Pretty-print JSON with syntax highlighting
+
+    // Append all elements to the card
     card.appendChild(title);
     card.appendChild(message);
     card.appendChild(footer);
     card.appendChild(showDataButton);
+    card.appendChild(jsonSection);
 
     cardsContainer.appendChild(card);
   });
@@ -103,6 +110,47 @@ function displayResult(data) {
   document.getElementById('json-view').style.display = 'block';
   document.getElementById('cards-view').style.display = 'block';
 }
+
+// Function to toggle the visibility of JSON data when clicking the "Show Data" button
+function toggleJsonData(card, event) {
+  const jsonSection = card.querySelector('.json-section');
+
+  // Toggle the visibility of the JSON section
+  if (jsonSection.style.display === 'none') {
+    jsonSection.style.display = 'block';
+  } else {
+    jsonSection.style.display = 'none';
+  }
+}
+
+// Function to apply syntax highlighting to JSON data
+function highlightJsonSyntax(jsonData) {
+  let jsonStr = JSON.stringify(jsonData, null, 2);
+
+  // Apply the same syntax highlighting rules as we did for the full JSON view
+  jsonStr = jsonStr
+    .replace(/"([^"]+)":/g, '<span class="data-key">"$1":</span>') // Highlight keys
+    .replace(/: ("[^"]*")/g, ': <span class="data-value">$1</span>') // Highlight string values
+    .replace(/: (\d+)/g, ': <span class="data-number">$1</span>') // Highlight numbers
+    .replace(/: (true|false)/g, ': <span class="data-boolean">$1</span>') // Highlight booleans
+    .replace(/: null/g, ': <span class="data-null">null</span>'); // Highlight null values
+
+  return jsonStr;
+}
+
+
+// Function to toggle the visibility of JSON data when clicking the "Show Data" button
+function toggleJsonData(card, event) {
+  const jsonSection = card.querySelector('.json-section');
+
+  // Toggle the visibility of the JSON section
+  if (jsonSection.style.display === 'none') {
+    jsonSection.style.display = 'block';
+  } else {
+    jsonSection.style.display = 'none';
+  }
+}
+
 
 // Function to convert JSON to YAML
 function jsonToYaml(json) {
@@ -143,10 +191,11 @@ function toggleYamlData(card, data) {
   let yamlSection = card.querySelector('.yaml-section');
 
   if (!yamlSection) {
-    // If no YAML data, create and display it
-    yamlSection = document.createElement('pre');
+    // If no YAML data, create and display it inside the 'result' div
+    yamlSection = document.createElement('div');
     yamlSection.classList.add('yaml-section');
-    yamlSection.textContent = jsonToYaml(data);
+    yamlSection.id = 'result';  // Set ID to 'result'
+    yamlSection.innerHTML = jsonToYaml(data);  // Add the YAML-formatted content
     card.appendChild(yamlSection);
   } else {
     // If YAML data already exists, toggle its visibility
