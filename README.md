@@ -2,6 +2,16 @@
 
 This repository contains a web app that fetches updates from the Telegram Bot API and displays the data in a prettified JSON format. The app is served using Nginx and can be run with Docker and Docker Compose, and is routed through Traefik with SSL certificates automatically managed via Cloudflare DNS challenge.
 
+## Demo
+
+You can view a live demo of the project at:
+[https://5mdt.github.io/telegram-getupdates/](https://5mdt.github.io/telegram-getupdates/)
+
+## Repository
+
+You can find the source code for the project here:
+[https://github.com/5mdt/telegram-getupdates](https://github.com/5mdt/telegram-getupdates)
+
 ## Requirements
 
 - Docker
