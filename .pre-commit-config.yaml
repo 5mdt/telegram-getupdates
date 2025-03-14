@@ -1,0 +1,44 @@
+# .pre-commit-config.yaml
+
+---
+repos:
+  - repo: https://github.com/prettier/prettier
+    rev: 3.5.3
+    hooks:
+      - id: prettier
+        files: \.(js|json|md|html|css|yaml|yml|toml)$
+
+  - repo: https://github.com/antfu/
+    rev: v1.1.4
+    hooks:
+      - id: htmlhint
+        name: Lint HTML files
+        files: \.(html)$
+
+  - repo: https://github.com/prettier/eslint-plugin-prettier
+    rev: v5.2.3
+    hooks:
+      - id: eslint
+        name: Lint JavaScript files
+        files: \.(js|jsx)$
+        additional_dependencies:
+          - eslint
+          - eslint-plugin-prettier
+
+  - repo: https://github.com/prettier/prettier-eslint
+    rev: v16.3.0
+    hooks:
+      - id: prettier-eslint
+        name: Lint and format JavaScript
+        files: \.(js|jsx)$
+        additional_dependencies:
+          - eslint
+          - prettier-eslint
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+    rev: v4.5.0

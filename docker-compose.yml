@@ -1,0 +1,21 @@
+services:
+  app:
+    image: docker.io/library/nginx:stable-alpine
+    volumes:
+      - ./:/usr/share/nginx/html
+    labels:
+      com.centurylinklabs.watchtower.enable: 'true'
+      local.yacht.port.3000: WebUI
+      traefik.docker.network: traefik_default
+      traefik.enable: true
+      traefik.http.routers.telegram-getupdates.entrypoints: websecure
+      traefik.http.routers.telegram-getupdates.rule: Host(`${SERVICE_NAME_OVERRIDE:-telegram-getupdates}.${DOMAIN_NAME:-local}`)
+      traefik.http.routers.telegram-getupdates.service: telegram-getupdates
+      traefik.http.routers.telegram-getupdates.tls: true
+      traefik.http.routers.telegram-getupdates.tls.certresolver: ${TRAEFIK_CERT_RESOLVER:-letsencrypt-cloudflare-dns-challenge}
+      traefik.http.services.telegram-getupdates.loadbalancer.server.port: 80
+    networks:
+      - traefik_default
+networks:
+  traefik_default:
+    external: true
