@@ -8,18 +8,28 @@
 </head>
 <body>
 
-    <h1>Telegram Bot GetUpdates</h1>
-    <label for="token">Enter Your Bot Token:</label>
-    <input type="text" id="token" placeholder="Your Telegram Bot Token">
-    <button onclick="fetchUpdates()">Get Updates</button>
-    <button onclick="clearResult()">Clear Result</button>
+    <div class="container">
+        <h1>Telegram Bot GetUpdates</h1>
 
-    <div id="result"></div>
-    <div id="loading" style="display: none;">Loading...</div>
+        <div id="token-input-section">
+            <label for="token">Enter Your Bot Token:</label>
+            <input type="text" id="token" placeholder="Your Telegram Bot Token">
 
-    <div>
-        <p>🐙 GitHub: <a href="https://github.com/5mdt/telegram-getupdates" target="_blank">5mdt/telegram-getupdates</a></p>
-        <p>🖼️ Demo: <a href="https://5mdt.github.io/telegram-getupdates/" target="_blank">Live Demo</a></p>
+            <div class="button-group">
+              <button onclick="fetchUpdates()">Get Updates</button>
+              <button onclick="saveToken()">Save Token</button>
+            </div>
+          </div>
+
+        <div id="saved-tokens-section">
+            <h2>Saved Tokens:</h2>
+            <ul id="tokensList"></ul>
+        </div>
+
+        <div id="result-section">
+            <div id="loading" style="display: none;">Loading...</div>
+            <div id="result"></div>
+        </div>
     </div>
 
     <script src="script.js"></script>
