@@ -4,42 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telegram Bot GetUpdates</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-
-        #result {
-            margin-top: 20px;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            background-color: #f4f4f4;
-            padding: 15px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        input, button {
-            padding: 10px;
-            font-size: 16px;
-            margin: 10px 0;
-        }
-
-        button {
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -50,34 +15,7 @@
 
     <div id="result"></div>
 
-    <script>
-        async function fetchUpdates() {
-            const token = document.getElementById('token').value;
-            if (!token) {
-                alert("Please enter your Telegram Bot Token");
-                return;
-            }
-
-            const url = `https://api.telegram.org/bot${token}/getUpdates`;
-
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch updates');
-                }
-
-                const data = await response.json();
-                displayResult(data);
-            } catch (error) {
-                alert(error.message);
-            }
-        }
-
-        function displayResult(data) {
-            const resultDiv = document.getElementById('result');
-            resultDiv.textContent = JSON.stringify(data, null, 2);
-        }
-    </script>
+    <script src="script.js"></script>
 
 </body>
 </html>
