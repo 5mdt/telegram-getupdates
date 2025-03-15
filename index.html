@@ -11,13 +11,14 @@
     <div class="container">
         <h1>Telegram Bot GetUpdates</h1>
         <p>Get telegram events. No external dependencies, no tracking, no even cookies.</p>
+        <p>All the data is saved only in your <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">browser's localStorage</a> and is not stored anywhere else</p>
         <div id="token-input-section">
             <label for="token">Enter Your Bot Token:</label>
             <input type="text" id="token" placeholder="Your Telegram Bot Token">
 
             <div class="button-group">
-              <button onclick="fetchUpdates()">Get Updates</button>
-              <button onclick="saveToken()">Save Token</button>
+              <button onclick="fetchUpdates()">🪝 Get Updates</button>
+              <button onclick="saveToken()">💾 Save Token</button>
             </div>
           </div>
 
@@ -27,8 +28,8 @@
         </div>
         <div id="result-section">
             <div class="button-group">
-                <button onclick="toggleView('json')">Show JSON</button>
-                <button onclick="toggleView('cards')">Show Cards</button>
+                <button onclick="toggleView('json')">👩‍💻 Show JSON</button>
+                <button onclick="toggleView('cards')">🚚 Show Cards</button>
             </div>
             <div id="loading" style="display: none;">Loading...</div>
 

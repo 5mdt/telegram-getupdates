@@ -86,7 +86,7 @@ function displayResult(data) {
 
     // Create the "Show Data" button
     const showDataButton = document.createElement('button');
-    showDataButton.textContent = "Show Data";
+    showDataButton.textContent = "🔎 Show Data";
     showDataButton.onclick = () => toggleJsonData(card, event);
 
     // Create a div for the JSON data (initially hidden)
@@ -260,11 +260,11 @@ function loadSavedTokens() {
 
       const buttonContainer = document.createElement('div'); // Container for buttons
       const loadButton = document.createElement('button');
-      loadButton.textContent = `Load`;
+      loadButton.textContent = `🚚 Load`;
       loadButton.onclick = () => loadSelectedToken(storageName);
 
       const removeButton = document.createElement('button');
-      removeButton.textContent = `Remove`;
+      removeButton.textContent = `🗑️ Remove`;
       removeButton.onclick = () => removeToken(storageName);
 
       buttonContainer.appendChild(loadButton);
