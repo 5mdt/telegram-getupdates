@@ -104,6 +104,7 @@ button:active {
 
 #tokensList .token-name {
   flex-grow: 1;
+  color: var(--nord-5);
 }
 
 #tokensList button {
