@@ -58,6 +58,12 @@ const mockData = {
   ]
 };
 
+// Function to validate the Telegram bot token format using regex
+function validateToken(token) {
+  const tokenPattern = /^[0-9]*:[0-9a-zA-Z_-]{35,36}$/;  // Basic Telegram bot token regex pattern
+  return tokenPattern.test(token);
+}
+
 // Function to display mock data in both JSON and Card views
 function displayMockData() {
   const resultDiv = document.getElementById('result');
@@ -103,6 +109,8 @@ function displayMockData() {
 
     const showDataButton = document.createElement('button');
     showDataButton.textContent = "🔎 Show Data";
+    showDataButton.setAttribute('aria-labelledby', 'showDataLabel');
+    showDataButton.setAttribute('aria-describedby', 'showDataDescription');
     showDataButton.onclick = () => toggleJsonData(card, event);
 
     const jsonSection = document.createElement('div');
@@ -128,8 +136,11 @@ function displayMockData() {
 // Function to fetch updates from Telegram API
 async function fetchUpdates() {
   const token = document.getElementById('token').value;
-  if (!token) {
-    alert("Please enter your Telegram Bot Token");
+
+
+  // Validate token format
+  if (!validateToken(token)) {
+    alert("Invalid token format.");
     return;
   }
 
@@ -154,9 +165,6 @@ async function fetchUpdates() {
     const resultDiv = document.getElementById('result');
     resultDiv.textContent = `Error: ${error.message}`;
     resultDiv.style.color = 'red';
-
-    // Optionally, you can display mock data in case of an error
-    displayMockData();
   } finally {
     // Hide the loading indicator after request completes
     document.getElementById('loading').style.display = 'none';
@@ -261,18 +269,13 @@ function toggleJsonData(card, event) {
 // Function to apply syntax highlighting to JSON data
 function highlightJsonSyntax(jsonData) {
   let jsonStr = JSON.stringify(jsonData, null, 2);
-
-  // Apply the same syntax highlighting rules as we did for the full JSON view
-  jsonStr = jsonStr
+  return jsonStr
     .replace(/"([^"]+)":/g, '<span class="data-key">"$1":</span>') // Highlight keys
     .replace(/: ("[^"]*")/g, ': <span class="data-value">$1</span>') // Highlight string values
     .replace(/: (\d+)/g, ': <span class="data-number">$1</span>') // Highlight numbers
     .replace(/: (true|false)/g, ': <span class="data-boolean">$1</span>') // Highlight booleans
     .replace(/: null/g, ': <span class="data-null">null</span>'); // Highlight null values
-
-  return jsonStr;
 }
-
 
 // Function to toggle between JSON and Cards view
 function toggleView(view) {

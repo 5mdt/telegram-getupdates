@@ -1,21 +1,22 @@
 /* Define Nord Aurora Light Color Palette Variables */
 :root {
-  --nord-0: #d8dee9; /* Snow Storm */
-  --nord-1: #e5e9f0; /* Ice Cold */
-  --nord-2: #eceff4; /* Frost */
-  --nord-3: #3b4252; /* Darker Gray */
-  --nord-4: #434c5e; /* Medium Gray */
-  --nord-5: #4c566a; /* Soft Dark Gray */
-  --nord-6: #81a1c1; /* Light Blue */
-  --nord-7: #88c0d0; /* Ice Blue */
-  --nord-8: #8fbcbb; /* Pale Sky */
-  --nord-9: #bf616a; /* Red Accent */
+  --nord-0: #d8dee9;  /* Snow Storm */
+  --nord-1: #e5e9f0;  /* Ice Cold */
+  --nord-2: #eceff4;  /* Frost */
+  --nord-3: #3b4252;  /* Darker Gray */
+  --nord-4: #434c5e;  /* Medium Gray */
+  --nord-5: #4c566a;  /* Soft Dark Gray */
+  --nord-6: #81a1c1;  /* Light Blue */
+  --nord-7: #88c0d0;  /* Ice Blue */
+  --nord-8: #8fbcbb;  /* Pale Sky */
+  --nord-9: #bf616a;  /* Red Accent */
   --nord-10: #d08770; /* Orange Accent */
   --nord-11: #ebcb8b; /* Yellow Accent */
   --nord-12: #a3be8c; /* Green Accent */
   --nord-13: #b48ead; /* Purple Accent */
 }
 
+/* Global Styles */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -30,6 +31,7 @@ body {
   display: block;
 }
 
+/* Containers */
 .container {
   max-width: 100%;
   margin: 0 auto;
@@ -39,6 +41,7 @@ body {
   box-sizing: border-box;
 }
 
+/* Typography */
 h1 {
   font-size: 1.75em;
   font-weight: 700;
@@ -47,6 +50,7 @@ h1 {
   margin-bottom: 1.25em;
 }
 
+/* Input Styles */
 input {
   padding: 0.6em;
   font-size: 1em;
@@ -62,6 +66,7 @@ input:focus {
   outline: none;
 }
 
+/* Button Styles */
 button {
   padding: 0.6em 1.25em;
   font-size: 1em;
@@ -73,18 +78,20 @@ button {
   width: 100%;
   max-width: 12.5em;
   box-sizing: border-box;
+  border-radius: 6px;
+  margin-bottom: 0.8em;
 }
 
 .button-success {
   background-color: var(--nord-12);
   color: var(--nord-2);
-  transition: 'background-color 2s ease-out'
+  transition: background-color 2s ease-out;
 }
 
 .button-fail {
   background-color: var(--nord-9);
   color: var(--nord-2);
-  transition: 'background-color 2s ease-out'
+  transition: background-color 2s ease-out;
 }
 
 button:hover {
@@ -95,6 +102,7 @@ button:active {
   background-color: var(--nord-13);
 }
 
+/* Token List */
 #tokensList {
   list-style-type: none;
   padding: 0;
@@ -129,6 +137,7 @@ button:active {
   gap: 0.6em;
 }
 
+/* Result Section */
 #result-section,
 #saved-tokens-section {
   display: none;
@@ -152,35 +161,7 @@ button:active {
   margin-left: 1.25em;
 }
 
-@media (max-width: 38em) {
-  h1 {
-    font-size: 1.5em;
-  }
-
-  .container {
-    padding: 1em;
-  }
-
-  input {
-    font-size: 0.9em;
-  }
-
-  button {
-    font-size: 0.9em;
-    padding: 0.5em 1em;
-  }
-
-  #tokensList li {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  #tokensList button {
-    width: 100%;
-    margin-top: 0.3em;
-  }
-}
-
+/* Cards View */
 #cards-view {
   margin-top: 1.875em;
 }
@@ -213,12 +194,14 @@ button:active {
   text-align: right;
 }
 
+/* Cards Grid Layout */
 #cardsContainer {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(17.5em, 1fr));
   gap: 1em;
 }
 
+/* Link Styles */
 a {
   color: var(--nord-6);
   text-decoration: none;
@@ -234,6 +217,7 @@ a:active {
   color: var(--nord-9);
 }
 
+/* JSON Section */
 .json-section {
   background-color: var(--nord-1);
   padding: 0.6em;
@@ -249,7 +233,37 @@ a:active {
   margin: 0;
 }
 
+/* Media Queries */
+@media (max-width: 38em) {
+  h1 {
+    font-size: 1.5em;
+  }
 
+  .container {
+    padding: 1em;
+  }
+
+  input {
+    font-size: 0.9em;
+  }
+
+  button {
+    font-size: 0.9em;
+    padding: 0.5em 1em;
+  }
+
+  #tokensList li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #tokensList button {
+    width: 100%;
+    margin-top: 0.3em;
+  }
+}
+
+/* Color Scheme: Light Mode */
 @media (prefers-color-scheme: light) {
   body {
     background-color: var(--nord-1);
@@ -266,7 +280,7 @@ a:active {
   }
 }
 
-
+/* Color Scheme: Dark Mode */
 @media (prefers-color-scheme: dark) {
   body {
     background-color: var(--nord-3);
