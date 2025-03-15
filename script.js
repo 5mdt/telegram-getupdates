@@ -201,9 +201,10 @@ function loadSavedTokens() {
       tokenName.classList.add('token-name');
       tokenName.textContent = `${storageName} `;
 
-      const buttonContainer = document.createElement('div'); // Container for buttons
+      const buttonContainer = document.createElement('div');
       const loadButton = document.createElement('button');
       loadButton.textContent = `🚚 Load`;
+      loadButton.setAttribute('data-token-name', storageName);
       loadButton.onclick = () => loadSelectedToken(storageName);
 
       const removeButton = document.createElement('button');
@@ -235,7 +236,16 @@ function loadSelectedToken(storageName) {
 
   if (savedToken) {
     document.getElementById('token').value = savedToken;
-    alert(`Token loaded for "${storageName}".`);
+
+    // Get the load button that was clicked
+    const loadButton = document.querySelector(`[data-token-name="${storageName}"]`);
+
+    // Change the button color to indicate it's been selected
+    loadButton.classList.add('button-success');
+    setTimeout(() => {
+      loadButton.classList.remove('button-success');
+      loadButton.style.transition = 'background-color 1s ease-out';
+    }, 1000);  // 1 seconds
   }
 }
 

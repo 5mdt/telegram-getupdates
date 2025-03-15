@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telegram Bot GetUpdates</title>
+    <!-- Respect system-level color scheme -->
+    <style>
+    @media (prefers-color-scheme: light) {
+        body {
+            background-color: #d8dee9;
+            color: #3b4252;
+        }
+    }
+
+    @media (prefers-color-scheme: dark) {
+        body {
+            background-color: #3b4252;
+            color: #d8dee9;
+        }
+    }
+    </style>
     <link rel="stylesheet" href="style.css">
     <meta name="Telegram Bot GetUpdates: Fetch and view updates from your Telegram bot.">
 </head>
@@ -34,7 +50,17 @@
 
         <div id="saved-tokens-section" style="display: none;" aria-labelledby="saved-tokens-title" aria-describedby="saved-tokens-description">
             <h2 id="saved-tokens-title">Saved Tokens:</h2>
-            <ul id="tokensList" aria-live="polite"></ul>
+            <div id="tokensList">
+                <ul id="tokensList" aria-live="polite">
+                    <li>
+                        <span class="token-name">default-token</span>
+                        <div>
+                            <button data-token-name="default-token" onclick="loadSelectedToken('default-token')">🚚 Load</button>
+                            <button onclick="removeToken('default-token')">🗑️ Remove</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
             <p id="saved-tokens-description">Here you can view and manage your saved Telegram bot tokens.</p>
         </div>
 
