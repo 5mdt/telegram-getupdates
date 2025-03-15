@@ -1,3 +1,130 @@
+// Mock data
+const mockData = {
+  "ok": true,
+  "result": [
+    {
+      "update_id": 123456789,
+      "message": {
+        "message_id": 1,
+        "from": {
+          "id": 111111111,
+          "is_bot": false,
+          "first_name": "John",
+          "last_name": "Doe",
+          "username": "johndoe",
+          "language_code": "en"
+        },
+        "chat": {
+          "id": 111111111,
+          "first_name": "John",
+          "last_name": "Doe",
+          "username": "johndoe",
+          "type": "private"
+        },
+        "date": 1632328992,
+        "text": "Hello, this is a test message!"
+      }
+    },
+    {
+      "update_id": 123456790,
+      "my_chat_member": {
+        "chat": {
+          "id": 111111111,
+          "first_name": "John",
+          "last_name": "Doe",
+          "username": "johndoe",
+          "type": "private"
+        },
+        "from": {
+          "id": 111111111,
+          "is_bot": false,
+          "first_name": "John",
+          "last_name": "Doe",
+          "username": "johndoe",
+          "language_code": "en"
+        },
+        "date": 1632328992,
+        "new_chat_member": {
+          "status": "administrator",
+          "user": {
+            "id": 111111111,
+            "first_name": "John",
+            "last_name": "Doe",
+            "username": "johndoe"
+          }
+        }
+      }
+    }
+  ]
+};
+
+// Function to display mock data in both JSON and Card views
+function displayMockData() {
+  const resultDiv = document.getElementById('result');
+  const cardsContainer = document.getElementById('cardsContainer');
+
+  // Display mock data in JSON view
+  resultDiv.textContent = JSON.stringify(mockData, null, 2);
+  const formattedData = JSON.stringify(mockData, null, 2)
+    .replace(/"([^"]+)":/g, '<span class="data-key">"$1":</span>') // Highlight keys
+    .replace(/: ("[^"]*")/g, ': <span class="data-value">$1</span>') // Highlight string values
+    .replace(/: (\d+)/g, ': <span class="data-number">$1</span>') // Highlight numbers
+    .replace(/: (true|false)/g, ': <span class="data-boolean">$1</span>') // Highlight booleans
+    .replace(/: null/g, ': <span class="data-null">null</span>'); // Highlight null values
+  resultDiv.innerHTML = formattedData;
+
+  // Display mock data in Cards view
+  cardsContainer.innerHTML = ''; // Clear previous cards
+  const events = mockData.result;  // Assuming events are in 'result' key
+  events.forEach(event => {
+    const card = document.createElement('div');
+    card.classList.add('card');
+
+    const title = document.createElement('h4');
+    title.textContent = `Event ID: ${event.update_id}`;
+
+    let messageContent = "No message";
+    let footerContent = "Unknown sender";
+
+    if (event.message) {
+      messageContent = event.message.text || "No text content";
+      footerContent = `From: ${event.message.from.username}`;
+    } else if (event.my_chat_member) {
+      messageContent = `Chat changed: ${event.my_chat_member.new_chat_member.status}`;
+      footerContent = `From: ${event.my_chat_member.from.username}`;
+    }
+
+    const message = document.createElement('p');
+    message.textContent = messageContent;
+
+    const footer = document.createElement('div');
+    footer.classList.add('card-footer');
+    footer.textContent = footerContent;
+
+    const showDataButton = document.createElement('button');
+    showDataButton.textContent = "🔎 Show Data";
+    showDataButton.onclick = () => toggleJsonData(card, event);
+
+    const jsonSection = document.createElement('div');
+    jsonSection.classList.add('json-section');
+    jsonSection.style.display = 'none';
+    jsonSection.innerHTML = `<pre>${highlightJsonSyntax(event)}</pre>`;
+
+    card.appendChild(title);
+    card.appendChild(message);
+    card.appendChild(footer);
+    card.appendChild(showDataButton);
+    card.appendChild(jsonSection);
+
+    cardsContainer.appendChild(card);
+  });
+
+  document.getElementById('result-section').style.display = 'block';
+  document.getElementById('json-view').style.display = 'block';
+  document.getElementById('cards-view').style.display = 'block';
+}
+
+// Function to fetch updates from Telegram API
 // Function to fetch updates from Telegram API
 async function fetchUpdates() {
   const token = document.getElementById('token').value;
@@ -23,9 +150,15 @@ async function fetchUpdates() {
     const data = await response.json();
     displayResult(data);
   } catch (error) {
-    alert(error.message);
+    // Show error message on UI
+    const resultDiv = document.getElementById('result');
+    resultDiv.textContent = `Error: ${error.message}`;
+    resultDiv.style.color = 'red';
+
+    // Optionally, you can display mock data in case of an error
+    displayMockData();
   } finally {
-    // Hide the loading indicator
+    // Hide the loading indicator after request completes
     document.getElementById('loading').style.display = 'none';
   }
 }

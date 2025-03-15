@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fetch and view updates from your Telegram bot with no tracking or cookies, using a simple interface.">
     <title>Telegram Bot GetUpdates</title>
     <!-- Respect system-level color scheme -->
     <style>
@@ -21,7 +22,6 @@
     }
     </style>
     <link rel="stylesheet" href="style.css">
-    <meta name="Telegram Bot GetUpdates: Fetch and view updates from your Telegram bot.">
 </head>
 <body>
 
@@ -34,7 +34,8 @@
             <input type="text" id="token" placeholder="Your Telegram Bot Token" aria-labelledby="token-label" aria-describedby="token-description">
 
             <div class="button-group">
-                <button onclick="fetchUpdates()" aria-labelledby="getUpdatesButtonLabel" aria-describedby="getUpdatesButtonDescription" title="Get Telegram updates">🪝 Get Updates</button>
+                <button onclick="fetchUpdates()" aria-label="Fetch updates from Telegram Bot" title="Fetch updates from Telegram Bot using the entered token">🪝 Get updates</button>
+                <button onclick="displayMockData()" aria-labelledby="showMockData" aria-describedby="showMockData" title="Show how it looks with mock data">👀 Show mock data</button>
                 <button onclick="saveToken()" aria-labelledby="saveTokenButtonLabel" aria-describedby="saveTokenButtonDescription" title="Save Token to localStorage">💾 Save Token</button>
             </div>
 
@@ -48,10 +49,10 @@
             <p id="token-description">Enter your Telegram bot token to fetch updates from your bot.</p>
           </div>
 
-        <div id="saved-tokens-section" style="display: none;" aria-labelledby="saved-tokens-title" aria-describedby="saved-tokens-description">
+          <div id="saved-tokens-section" style="display: none;" aria-labelledby="saved-tokens-title" aria-describedby="saved-tokens-description">
             <h2 id="saved-tokens-title">Saved Tokens:</h2>
             <div id="tokensList">
-                <ul id="tokensList" aria-live="polite">
+                <ul id="tokensListContainer" aria-live="polite">
                     <li>
                         <span class="token-name">default-token</span>
                         <div>
@@ -66,8 +67,8 @@
 
         <div id="result-section" aria-labelledby="result-section-title">
             <div class="button-group">
-                <button onclick="toggleView('json')" aria-label="Show only JSON view" title="Show only JSON view">👩‍💻 Show JSON</button>
-                <button onclick="toggleView('cards')" aria-label="Show only Cards view" title="Show only Cards view">🚚 Show Cards</button>
+                <button onclick="toggleView('json')" aria-label="Show only JSON view" title="Show only JSON view">👩‍💻 Show JSON only</button>
+                <button onclick="toggleView('cards')" aria-label="Show only Cards view" title="Show only Cards view">🚚 Show Cards only</button>
             </div>
             <div id="loading" style="display: none;">Loading...</div>
 
@@ -85,10 +86,11 @@
     </div>
 
     <script src="script.js"></script>
-
+    <hr>
     <div>
         <p>🐙 GitHub: <a href="https://github.com/5mdt/telegram-getupdates" target="_blank">5mdt/telegram-getupdates</a></p>
         <p>🖼️ Demo: <a href="https://5mdt.github.io/telegram-getupdates/" target="_blank">Live Demo</a></p>
+        <p>🎨 Check <a href="https://www.nordtheme.com/"target="_blank">Nord color pallette</a></p>
     </div>
 </body>
 </html>
