@@ -84,9 +84,11 @@ function displayResult(data) {
     footer.classList.add('card-footer');
     footer.textContent = footerContent;
 
-    // Create the "Show Data" button
+    // Create the "Show Data" button with aria-labelledby and aria-describedby
     const showDataButton = document.createElement('button');
-    showDataButton.textContent = "Show Data";
+    showDataButton.textContent = "🔎 Show Data";
+    showDataButton.setAttribute('aria-labelledby', 'showDataLabel');
+    showDataButton.setAttribute('aria-describedby', 'showDataDescription');
     showDataButton.onclick = () => toggleJsonData(card, event);
 
     // Create a div for the JSON data (initially hidden)
@@ -139,71 +141,6 @@ function highlightJsonSyntax(jsonData) {
 }
 
 
-// Function to toggle the visibility of JSON data when clicking the "Show Data" button
-function toggleJsonData(card, event) {
-  const jsonSection = card.querySelector('.json-section');
-
-  // Toggle the visibility of the JSON section
-  if (jsonSection.style.display === 'none') {
-    jsonSection.style.display = 'block';
-  } else {
-    jsonSection.style.display = 'none';
-  }
-}
-
-
-// Function to convert JSON to YAML
-function jsonToYaml(json) {
-  let yaml = '';
-  for (const key in json) {
-    if (json.hasOwnProperty(key)) {
-      const value = json[key];
-      if (typeof value === 'object' && value !== null) {
-        yaml += `${key}:\n${indentObject(value, 2)}`;
-      } else {
-        yaml += `${key}: ${value}\n`;
-      }
-    }
-  }
-  return yaml;
-}
-
-// Helper function to indent objects for YAML formatting
-function indentObject(obj, indentLevel) {
-  let indented = '';
-  const indent = ' '.repeat(indentLevel);
-  for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      const value = obj[key];
-      if (typeof value === 'object' && value !== null) {
-        indented += `${indent}${key}:\n${indentObject(value, indentLevel + 2)}`;
-      } else {
-        indented += `${indent}${key}: ${value}\n`;
-      }
-    }
-  }
-  return indented;
-}
-
-// Function to toggle YAML data view on button click
-function toggleYamlData(card, data) {
-  // Check if YAML data already exists
-  let yamlSection = card.querySelector('.yaml-section');
-
-  if (!yamlSection) {
-    // If no YAML data, create and display it inside the 'result' div
-    yamlSection = document.createElement('div');
-    yamlSection.classList.add('yaml-section');
-    yamlSection.id = 'result';  // Set ID to 'result'
-    yamlSection.innerHTML = jsonToYaml(data);  // Add the YAML-formatted content
-    card.appendChild(yamlSection);
-  } else {
-    // If YAML data already exists, toggle its visibility
-    yamlSection.style.display = yamlSection.style.display === 'none' ? 'block' : 'none';
-  }
-}
-
-
 // Function to toggle between JSON and Cards view
 function toggleView(view) {
   if (view === 'json') {
@@ -233,6 +170,12 @@ function saveToken() {
     return;
   }
 
+  // Check if a token with the same name already exists in localStorage
+  if (localStorage.getItem(storageName)) {
+    alert("A token with that name already exists!");
+    return;
+  }
+
   // Save the token with the provided name
   localStorage.setItem(storageName, token);
   alert(`Token saved with the name "${storageName}".`);
@@ -258,13 +201,14 @@ function loadSavedTokens() {
       tokenName.classList.add('token-name');
       tokenName.textContent = `${storageName} `;
 
-      const buttonContainer = document.createElement('div'); // Container for buttons
+      const buttonContainer = document.createElement('div');
       const loadButton = document.createElement('button');
-      loadButton.textContent = `Load`;
+      loadButton.textContent = `🚚 Load`;
+      loadButton.setAttribute('data-token-name', storageName);
       loadButton.onclick = () => loadSelectedToken(storageName);
 
       const removeButton = document.createElement('button');
-      removeButton.textContent = `Remove`;
+      removeButton.textContent = `🗑️ Remove`;
       removeButton.onclick = () => removeToken(storageName);
 
       buttonContainer.appendChild(loadButton);
@@ -292,7 +236,16 @@ function loadSelectedToken(storageName) {
 
   if (savedToken) {
     document.getElementById('token').value = savedToken;
-    alert(`Token loaded for "${storageName}".`);
+
+    // Get the load button that was clicked
+    const loadButton = document.querySelector(`[data-token-name="${storageName}"]`);
+
+    // Change the button color to indicate it's been selected
+    loadButton.classList.add('button-success');
+    setTimeout(() => {
+      loadButton.classList.remove('button-success');
+      loadButton.style.transition = 'background-color 1s ease-out';
+    }, 1000);  // 1 seconds
   }
 }
 

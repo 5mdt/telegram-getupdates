@@ -4,41 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telegram Bot GetUpdates</title>
+    <!-- Respect system-level color scheme -->
+    <style>
+    @media (prefers-color-scheme: light) {
+        body {
+            background-color: #d8dee9;
+            color: #3b4252;
+        }
+    }
+
+    @media (prefers-color-scheme: dark) {
+        body {
+            background-color: #3b4252;
+            color: #d8dee9;
+        }
+    }
+    </style>
     <link rel="stylesheet" href="style.css">
+    <meta name="Telegram Bot GetUpdates: Fetch and view updates from your Telegram bot.">
 </head>
 <body>
 
     <div class="container">
-        <h1>Telegram Bot GetUpdates</h1>
-        <p>Get telegram events. No external dependencies, no tracking, no even cookies.</p>
+        <h1 id="page-title">Telegram Bot GetUpdates</h1>
+        <p id="intro-description">Get telegram events. No external dependencies, no tracking, no even cookies.</p>
+        <p id="privacy-description">All the data is saved only in your <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">browser's localStorage</a> and is not stored anywhere else</p>
         <div id="token-input-section">
-            <label for="token">Enter Your Bot Token:</label>
-            <input type="text" id="token" placeholder="Your Telegram Bot Token">
+            <label for="token" id="token-label">Enter Your Bot Token:</label>
+            <input type="text" id="token" placeholder="Your Telegram Bot Token" aria-labelledby="token-label" aria-describedby="token-description">
 
             <div class="button-group">
-              <button onclick="fetchUpdates()">Get Updates</button>
-              <button onclick="saveToken()">Save Token</button>
+                <button onclick="fetchUpdates()" aria-labelledby="getUpdatesButtonLabel" aria-describedby="getUpdatesButtonDescription" title="Get Telegram updates">🪝 Get Updates</button>
+                <button onclick="saveToken()" aria-labelledby="saveTokenButtonLabel" aria-describedby="saveTokenButtonDescription" title="Save Token to localStorage">💾 Save Token</button>
             </div>
+
+            <!-- Descriptions for Buttons -->
+            <span id="getUpdatesButtonLabel" style="display: none;">Get Telegram updates button</span>
+            <span id="getUpdatesButtonDescription" style="display: none;">Fetch updates from Telegram Bot with the provided token.</span>
+
+            <span id="saveTokenButtonLabel" style="display: none;">Save Token button</span>
+            <span id="saveTokenButtonDescription" style="display: none;">Save the provided token in localStorage for future use.</span>
+
+            <p id="token-description">Enter your Telegram bot token to fetch updates from your bot.</p>
           </div>
 
-        <div id="saved-tokens-section" style="display: none;">
-            <h2>Saved Tokens:</h2>
-            <ul id="tokensList"></ul>
+        <div id="saved-tokens-section" style="display: none;" aria-labelledby="saved-tokens-title" aria-describedby="saved-tokens-description">
+            <h2 id="saved-tokens-title">Saved Tokens:</h2>
+            <div id="tokensList">
+                <ul id="tokensList" aria-live="polite">
+                    <li>
+                        <span class="token-name">default-token</span>
+                        <div>
+                            <button data-token-name="default-token" onclick="loadSelectedToken('default-token')">🚚 Load</button>
+                            <button onclick="removeToken('default-token')">🗑️ Remove</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <p id="saved-tokens-description">Here you can view and manage your saved Telegram bot tokens.</p>
         </div>
-        <div id="result-section">
+
+        <div id="result-section" aria-labelledby="result-section-title">
             <div class="button-group">
-                <button onclick="toggleView('json')">Show JSON</button>
-                <button onclick="toggleView('cards')">Show Cards</button>
+                <button onclick="toggleView('json')" aria-label="Show only JSON view" title="Show only JSON view">👩‍💻 Show JSON</button>
+                <button onclick="toggleView('cards')" aria-label="Show only Cards view" title="Show only Cards view">🚚 Show Cards</button>
             </div>
             <div id="loading" style="display: none;">Loading...</div>
 
-            <div id="cards-view">
-                <h3>Events View</h3>
+            <div id="cards-view" aria-labelledby="cards-view-title">
+                <h3 id="cards-view-title">Events View</h3>
                 <div id="cardsContainer"></div>
             </div>
 
-            <div id="json-view" style="display: none;">
-                <h3>JSON View</h3>
+            <div id="json-view" style="display: none;" aria-labelledby="json-view-title">
+                <h3 id="json-view-title">JSON View</h3>
                 <div id="result"></div>
             </div>
 
